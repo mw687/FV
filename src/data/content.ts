@@ -135,12 +135,6 @@ export const companies: Company[] = [
         photo: "hassan-fayad",
         linkedin: "https://www.linkedin.com/in/hassan-f-205745148/",
       },
-      {
-        name: "Ahmed Safar",
-        role: "CTO",
-        photo: "ahmed-safar",
-        linkedin: "https://www.linkedin.com/in/ahmed-safar/",
-      },
     ],
   },
   {
