@@ -306,6 +306,9 @@ export const companies: Company[] = [
     oneLiner: "AI-powered roll-ups for professional services",
     website: "https://accordpartners.ai",
     logo: "accord-partners",
+    teamPhoto: "accord-partners",
+    whyWeBacked:
+      "Amr and Karim's reputations as seasoned builders preceded them. As the co-founder and CEO of Tribal Credit, a global fintech for SMEs, Amr raised $180mn across equity, debt, and tokens, scaled the business to nearly 500 employees, and led multiple market launches. Karim, a computer science academic and former CTO of Blnk, brought the technical expertise to scale and modernize businesses effectively.",
     founders: [
       {
         name: "Amr Shady",
@@ -348,7 +351,7 @@ export const companies: Company[] = [
 ];
 
 /** Order companies appear in the thesis "why we backed them" carousel, independent of their position above. New companies are appended as they're added. */
-export const thesisShowcaseOrder: string[] = ["flextock", "rabbit", "swypex", "nowpay", "aydi", "sakneen", "abwaab"];
+export const thesisShowcaseOrder: string[] = ["flextock", "accord-partners", "rabbit", "swypex", "nowpay", "aydi", "abwaab"];
 
 export interface TeamMember {
   slug: string;
