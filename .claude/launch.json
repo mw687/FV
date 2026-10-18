@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "fv-website-dev",
+      "runtimeExecutable": "/Users/mohamedwael/Desktop/FV Website/.claude/dev.sh",
+      "runtimeArgs": [],
+      "port": 4322
+    }
+  ]
+}

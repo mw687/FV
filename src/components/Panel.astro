@@ -1,0 +1,177 @@
+---
+// Shared panel used for both company-founders and team-bio detail views.
+// Content is supplied per-trigger via a <template>; this component only
+// owns the open/close behavior (focus trap, ESC, backdrop, scroll lock).
+---
+
+<div class="panel-backdrop" id="panel-backdrop" hidden></div>
+<div
+  class="panel"
+  id="panel"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  tabindex="-1"
+  hidden
+>
+  <button class="panel__close" id="panel-close" type="button" aria-label="Close">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <path d="M1 1L17 17M17 1L1 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+    </svg>
+  </button>
+  <div class="panel__content" id="panel-content"></div>
+</div>
+
+<style>
+  .panel-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    transition: opacity var(--transition-panel);
+    z-index: 90;
+  }
+
+  .panel-backdrop.is-open {
+    opacity: 1;
+  }
+
+  .panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(480px, 100vw);
+    background: var(--color-bg-raised);
+    color: var(--color-text);
+    z-index: 91;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform var(--transition-panel);
+    padding: 3.5rem 2rem 2.5rem;
+    box-shadow: -8px 0 32px rgba(0, 0, 0, 0.25);
+  }
+
+  .panel.is-open {
+    transform: translateX(0);
+  }
+
+  .panel__close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    color: var(--color-accent);
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+  }
+
+  @media (max-width: 768px) {
+    .panel {
+      top: auto;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-height: 85vh;
+      border-radius: 12px 12px 0 0;
+      transform: translateY(100%);
+      padding: 3rem 1.25rem 2rem;
+    }
+
+    .panel.is-open {
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  const backdrop = document.getElementById("panel-backdrop") as HTMLElement;
+  const panel = document.getElementById("panel") as HTMLElement;
+  const panelContent = document.getElementById("panel-content") as HTMLElement;
+  const closeBtn = document.getElementById("panel-close") as HTMLElement;
+
+  let triggerEl: HTMLElement | null = null;
+
+  function getFocusable(container: HTMLElement): HTMLElement[] {
+    return Array.from(
+      container.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+    );
+  }
+
+  function openPanel(templateId: string, trigger: HTMLElement) {
+    const template = document.getElementById(templateId) as HTMLTemplateElement | null;
+    if (!template) return;
+
+    panelContent.innerHTML = "";
+    panelContent.appendChild(template.content.cloneNode(true));
+
+    triggerEl = trigger;
+
+    backdrop.hidden = false;
+    panel.hidden = false;
+    // Force reflow so the transition runs
+    void panel.offsetWidth;
+    backdrop.classList.add("is-open");
+    panel.classList.add("is-open");
+    panel.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    closeBtn.focus();
+    document.addEventListener("keydown", onKeydown);
+  }
+
+  function closePanel() {
+    backdrop.classList.remove("is-open");
+    panel.classList.remove("is-open");
+    panel.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    document.removeEventListener("keydown", onKeydown);
+
+    const onTransitionEnd = () => {
+      panel.hidden = true;
+      backdrop.hidden = true;
+      panel.removeEventListener("transitionend", onTransitionEnd);
+    };
+    panel.addEventListener("transitionend", onTransitionEnd);
+
+    if (triggerEl) {
+      triggerEl.focus();
+      triggerEl = null;
+    }
+  }
+
+  function onKeydown(e: KeyboardEvent) {
+    if (e.key === "Escape") {
+      closePanel();
+      return;
+    }
+    if (e.key === "Tab") {
+      const focusable = getFocusable(panel);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+
+  document.addEventListener("click", (e) => {
+    const trigger = (e.target as HTMLElement).closest<HTMLElement>("[data-panel-target]");
+    if (trigger) {
+      const targetId = trigger.getAttribute("data-panel-target");
+      if (targetId) openPanel(targetId, trigger);
+    }
+  });
+
+  backdrop.addEventListener("click", closePanel);
+  closeBtn.addEventListener("click", closePanel);
+</script>

@@ -1,0 +1,93 @@
+---
+import type { TeamMember } from "../data/content";
+
+interface Props {
+  member: TeamMember;
+  photoSrc: string;
+}
+
+const { member, photoSrc } = Astro.props;
+const panelId = `panel-team-${member.slug}`;
+---
+
+<button class="card" type="button" data-panel-target={panelId} aria-haspopup="dialog">
+  <img class="card__photo" src={photoSrc} alt={member.name} loading="lazy" />
+  <span class="card__name">{member.name}</span>
+  <span class="card__title">{member.title}</span>
+</button>
+
+<template id={panelId}>
+  <img class="panel-photo" src={photoSrc} alt={member.name} />
+  <h2 class="panel-title">{member.name}</h2>
+  <p class="panel-oneliner">{member.title}</p>
+  {
+    member.bio ? (
+      <p class="panel-bio">{member.bio}</p>
+    ) : (
+      <p class="founder-pending">Bio coming soon.</p>
+    )
+  }
+  {
+    member.linkedin && (
+      <a class="panel-website" href={member.linkedin} target="_blank" rel="noopener noreferrer">
+        LinkedIn →
+      </a>
+    )
+  }
+</template>
+
+<style>
+  .card {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .card__photo {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: top center;
+    margin-bottom: 1rem;
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  .card__name {
+    font-weight: 700;
+    font-size: 1.0625rem;
+  }
+
+  .card__title {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .panel-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    margin-bottom: 1.5rem;
+  }
+
+  .panel-bio {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-text);
+    margin: 0 0 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .card {
+      align-items: center;
+      text-align: center;
+    }
+  }
+</style>

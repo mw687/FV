@@ -1,0 +1,132 @@
+---
+import { companies } from "../data/content";
+import CompanyTile from "./CompanyTile.astro";
+
+import trella from "../assets/companies/trella.svg";
+import swypex from "../assets/companies/swypex.svg";
+import kenzz from "../assets/companies/kenzz.svg";
+import aydi from "../assets/companies/aydi.svg";
+import rabbit from "../assets/companies/rabbit.png";
+import abwaab from "../assets/companies/abwaab.png";
+import sakneen from "../assets/companies/sakneen.svg";
+import minly from "../assets/companies/minly.svg";
+import flextock from "../assets/companies/flextock.png";
+import nowpay from "../assets/companies/nowpay.svg";
+import accordPartners from "../assets/companies/accord-partners.png";
+import flashq from "../assets/companies/flashq.png";
+
+import ahmadMokhtar from "../assets/founders/ahmad-mokhtar.webp";
+import tarekMokhtar from "../assets/founders/tarek-mokhtar.webp";
+import sasanHezarkhani from "../assets/founders/sasan-hezarkhani.webp";
+import omarHagrass from "../assets/founders/omar-hagrass.webp";
+import aliElAtrash from "../assets/founders/ali-el-atrash.webp";
+import pierreSaad from "../assets/founders/pierre-saad.webp";
+import ahmadAtaf from "../assets/founders/ahmad-ataf.webp";
+import mahmoudAlSilk from "../assets/founders/mahmoud-al-silk.webp";
+import hassanFayad from "../assets/founders/hassan-fayad.webp";
+import ahmedSafar from "../assets/founders/ahmed-safar.webp";
+import ahmadYousry from "../assets/founders/ahmad-yousry.webp";
+import ismailHafez from "../assets/founders/ismail-hafez.webp";
+import walidShabana from "../assets/founders/walid-shabana.webp";
+import hamdiTabba from "../assets/founders/hamdi-tabba.webp";
+import sabriHakim from "../assets/founders/sabri-hakim.webp";
+import ramyKhorshed from "../assets/founders/ramy-khorshed.webp";
+import husseinElKheshen from "../assets/founders/hussein-el-kheshen.webp";
+import khaledZaki from "../assets/founders/khaled-zaki.webp";
+import mohamedElShinnawy from "../assets/founders/mohamed-el-shinnawy.webp";
+import mohamedMossaad from "../assets/founders/mohamed-mossaad.webp";
+import enasSiam from "../assets/founders/enas-siam.webp";
+import mostafaAshour from "../assets/founders/mostafa-ashour.webp";
+import amrShady from "../assets/founders/amr-shady.webp";
+import karimSobh from "../assets/founders/karim-sobh.webp";
+import ahmedElSobky from "../assets/founders/ahmed-el-sobky.webp";
+import yahiaArafa from "../assets/founders/yahia-arafa.webp";
+
+const founderPhotoMap: Record<string, string> = {
+  "ahmad-mokhtar": ahmadMokhtar.src,
+  "tarek-mokhtar": tarekMokhtar.src,
+  "sasan-hezarkhani": sasanHezarkhani.src,
+  "omar-hagrass": omarHagrass.src,
+  "ali-el-atrash": aliElAtrash.src,
+  "pierre-saad": pierreSaad.src,
+  "ahmad-ataf": ahmadAtaf.src,
+  "mahmoud-al-silk": mahmoudAlSilk.src,
+  "hassan-fayad": hassanFayad.src,
+  "ahmed-safar": ahmedSafar.src,
+  "ahmad-yousry": ahmadYousry.src,
+  "ismail-hafez": ismailHafez.src,
+  "walid-shabana": walidShabana.src,
+  "hamdi-tabba": hamdiTabba.src,
+  "sabri-hakim": sabriHakim.src,
+  "ramy-khorshed": ramyKhorshed.src,
+  "hussein-el-kheshen": husseinElKheshen.src,
+  "khaled-zaki": khaledZaki.src,
+  "mohamed-el-shinnawy": mohamedElShinnawy.src,
+  "mohamed-mossaad": mohamedMossaad.src,
+  "enas-siam": enasSiam.src,
+  "mostafa-ashour": mostafaAshour.src,
+  "amr-shady": amrShady.src,
+  "karim-sobh": karimSobh.src,
+  "ahmed-el-sobky": ahmedElSobky.src,
+  "yahia-arafa": yahiaArafa.src,
+};
+
+const logoMap: Record<string, string> = {
+  trella: trella.src,
+  swypex: swypex.src,
+  kenzz: kenzz.src,
+  aydi: aydi.src,
+  rabbit: rabbit.src,
+  abwaab: abwaab.src,
+  sakneen: sakneen.src,
+  minly: minly.src,
+  flextock: flextock.src,
+  nowpay: nowpay.src,
+  "accord-partners": accordPartners.src,
+  flashq: flashq.src,
+};
+---
+
+<section class="companies" id="companies">
+  <p class="eyebrow reveal">Our Companies &amp; People</p>
+  <div class="companies__grid reveal">
+    {
+      companies.map((company) => (
+        <CompanyTile company={company} logoSrc={logoMap[company.logo]} founderPhotoMap={founderPhotoMap} />
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .companies {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 2.5rem var(--gutter);
+  }
+
+  .companies__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--color-bg);
+  }
+
+  @media (max-width: 900px) {
+    .companies__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .companies {
+      padding: 1.75rem var(--gutter);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .companies__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+import { team } from "../data/content";
+import TeamCard from "./TeamCard.astro";
+
+import mazen from "../assets/team/mazen.webp";
+import katherine from "../assets/team/katherine.webp";
+import wael from "../assets/team/wael.webp";
+
+const photoMap: Record<string, string> = {
+  mazen: mazen.src,
+  katherine: katherine.src,
+  wael: wael.src,
+};
+---
+
+<section class="team" id="team">
+  <p class="eyebrow reveal">Our Team</p>
+  <div class="team__grid reveal">
+    {team.map((member) => <TeamCard member={member} photoSrc={photoMap[member.photo]} />)}
+  </div>
+</section>
+
+<style>
+  .team {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 2.5rem var(--gutter) 4rem;
+  }
+
+  .team__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .team {
+      padding: 1.75rem var(--gutter) 3rem;
+    }
+
+    .team__grid {
+      grid-template-columns: 1fr;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+  }
+</style>

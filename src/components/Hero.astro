@@ -1,0 +1,317 @@
+---
+import { companies, thesisShowcaseOrder } from "../data/content";
+import flextockTeam from "../assets/team-photos/flextock.webp";
+import rabbitTeam from "../assets/team-photos/rabbit.jpeg";
+import swypexTeam from "../assets/team-photos/swypex.jpg";
+import nowpayTeam from "../assets/team-photos/nowpay.webp";
+import aydiTeam from "../assets/team-photos/aydi.jpg";
+import sakneenTeam from "../assets/team-photos/sakneen.jpg";
+import abwaabTeam from "../assets/team-photos/abwaab.jpg";
+
+const teamPhotoMap: Record<string, string> = {
+  flextock: flextockTeam.src,
+  rabbit: rabbitTeam.src,
+  swypex: swypexTeam.src,
+  nowpay: nowpayTeam.src,
+  aydi: aydiTeam.src,
+  sakneen: sakneenTeam.src,
+  abwaab: abwaabTeam.src,
+};
+
+const showcase = thesisShowcaseOrder
+  .map((slug) => companies.find((c) => c.slug === slug))
+  .filter((c): c is NonNullable<typeof c> => Boolean(c?.teamPhoto && c?.whyWeBacked));
+---
+
+<section class="hero">
+  <div class="hero__carousel">
+    <div class="hero__track" id="hero-track">
+      <div class="hero__slide hero__slide--thesis">
+        <p class="eyebrow reveal">Our Thesis</p>
+        <h1 class="hero__headline reveal" style="transition-delay: 90ms">
+          We back <span class="hero__highlight">people</span> who build industry-defining companies.
+        </h1>
+        <p class="hero__body reveal" style="transition-delay: 180ms">
+          We are a pre-seed and seed investor in Egypt and Africa, backing founders
+          often before anyone else does. We invest in people first: operators with
+          deep insight into a problem, building technology-enabled companies that
+          can define their industries. We commit early, and we stay close long
+          after, giving our founders the largest access across the country.
+        </p>
+      </div>
+      {
+        showcase.map((company) => (
+          <div class="hero__slide hero__slide--company">
+            <p class="eyebrow">{company.name}</p>
+            <div class="hero__company-row">
+              <img
+                class="hero__photo"
+                src={teamPhotoMap[company.teamPhoto!]}
+                alt={`${company.founders.map((f) => f.name).join(" and ")}, ${company.name}`}
+                loading="lazy"
+              />
+              <div class="hero__why-col">
+                <p class="hero__why-label">{company.showcaseLabel ?? "Why we backed this team"}</p>
+                <p class="hero__why">{company.whyWeBacked}</p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    {
+      showcase.length > 0 && (
+        <div class="hero__controls">
+          <button class="hero__nav hero__nav--prev" id="hero-prev" type="button" aria-label="Previous">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+          <div class="hero__dots" id="hero-dots" />
+          <button class="hero__nav hero__nav--next" id="hero-next" type="button" aria-label="Next">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .hero {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 6rem var(--gutter) 2.5rem;
+  }
+
+  .hero__carousel {
+    position: relative;
+  }
+
+  .hero__track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .hero__track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hero__slide {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero__slide--thesis {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero__headline {
+    font-size: var(--text-h1-size);
+    line-height: var(--text-h1-leading);
+    font-weight: var(--text-h1-weight);
+    color: var(--color-headline);
+    margin: 0 0 1.75rem;
+    max-width: 18ch;
+  }
+
+  .hero__highlight {
+    color: var(--color-accent);
+  }
+
+  .hero__body {
+    font-size: var(--text-body-size);
+    line-height: var(--text-body-leading);
+    color: var(--color-text-muted);
+    max-width: var(--text-body-measure);
+    margin: 0;
+  }
+
+  .hero__slide--company {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero__company-row {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    width: 100%;
+  }
+
+  .hero__photo {
+    flex: 1.4 1 0;
+    min-width: 0;
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  .hero__why-col {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .hero__why-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    margin: 0 0 0.75rem;
+  }
+
+  .hero__why {
+    font-size: 1rem;
+    line-height: var(--text-body-leading);
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .hero__controls {
+    position: absolute;
+    top: 0.1rem;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero__nav {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    margin: -0.5rem;
+    color: var(--color-headline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+  }
+
+  .hero__nav:hover,
+  .hero__nav:focus-visible {
+    color: var(--color-accent);
+  }
+
+  .hero__nav:disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .hero__dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .hero__dots :global(.hero__dot) {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: var(--brand-grey-light-mid);
+    cursor: pointer;
+  }
+
+  .hero__dots :global(.hero__dot.is-active) {
+    background: var(--color-accent);
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 3.5rem var(--gutter) 1.75rem;
+    }
+
+    .hero__slide--company {
+      gap: 1.25rem;
+    }
+
+    .hero__company-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.5rem;
+    }
+
+    .hero__photo {
+      flex: 0 0 auto;
+      width: 100%;
+      height: 220px;
+    }
+  }
+</style>
+
+<script>
+  const track = document.getElementById("hero-track");
+  const prevBtn = document.getElementById("hero-prev") as HTMLButtonElement | null;
+  const nextBtn = document.getElementById("hero-next") as HTMLButtonElement | null;
+  const dotsContainer = document.getElementById("hero-dots");
+
+  if (track) {
+    const slides = Array.from(track.children) as HTMLElement[];
+    const dots: HTMLButtonElement[] = [];
+
+    if (dotsContainer && slides.length > 1) {
+      slides.forEach((_, i) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "hero__dot";
+        dot.setAttribute("aria-label", `Go to slide ${i + 1}`);
+        dot.addEventListener("click", () => scrollToIndex(i));
+        dotsContainer.appendChild(dot);
+        dots.push(dot);
+      });
+    }
+
+    function currentIndex() {
+      return Math.round(track!.scrollLeft / track!.clientWidth);
+    }
+
+    function updateUI() {
+      const idx = currentIndex();
+      dots.forEach((d, i) => d.classList.toggle("is-active", i === idx));
+      if (prevBtn) prevBtn.disabled = idx === 0;
+      if (nextBtn) nextBtn.disabled = idx === slides.length - 1;
+    }
+
+    function scrollToIndex(i: number) {
+      track!.scrollTo({ left: i * track!.clientWidth, behavior: "smooth" });
+    }
+
+    if (slides.length > 1) {
+      prevBtn?.addEventListener("click", () => scrollToIndex(Math.max(0, currentIndex() - 1)));
+      nextBtn?.addEventListener("click", () => scrollToIndex(Math.min(slides.length - 1, currentIndex() + 1)));
+
+      let ticking = false;
+      track.addEventListener("scroll", () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateUI();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+
+      window.addEventListener("resize", () => scrollToIndex(currentIndex()));
+
+      updateUI();
+    } else {
+      prevBtn?.remove();
+      nextBtn?.remove();
+    }
+  }
+</script>
