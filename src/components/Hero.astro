@@ -293,6 +293,12 @@ const showcase = thesisShowcaseOrder
       const lastClone = slides[realCount - 1].cloneNode(true) as HTMLElement;
       firstClone.setAttribute("aria-hidden", "true");
       lastClone.setAttribute("aria-hidden", "true");
+      // Clones stand in only for the loop illusion — force their scroll-reveal
+      // elements (e.g. the thesis slide's title) straight to the visible state
+      // so they never show the fade-in/slide-up intro while swiping past them.
+      [firstClone, lastClone].forEach((clone) => {
+        clone.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
+      });
       track.insertBefore(lastClone, slides[0]);
       track.appendChild(firstClone);
 
