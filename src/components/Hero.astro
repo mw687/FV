@@ -319,6 +319,49 @@ const showcase = thesisShowcaseOrder
         scrollToIndex(currentIndex());
       });
 
+      function isAtEnd() {
+        return track!.scrollLeft >= track!.scrollWidth - track!.clientWidth - 1;
+      }
+
+      function isAtStart() {
+        return track!.scrollLeft <= 1;
+      }
+
+      track.addEventListener(
+        "wheel",
+        (e) => {
+          if (isAtEnd() && e.deltaX > 10) {
+            e.preventDefault();
+            scrollToIndex(0);
+          } else if (isAtStart() && e.deltaX < -10) {
+            e.preventDefault();
+            scrollToIndex(slides.length - 1);
+          }
+        },
+        { passive: false }
+      );
+
+      let touchStartX = 0;
+      track.addEventListener(
+        "touchstart",
+        (e) => {
+          touchStartX = e.touches[0].clientX;
+        },
+        { passive: true }
+      );
+      track.addEventListener(
+        "touchend",
+        (e) => {
+          const delta = touchStartX - e.changedTouches[0].clientX;
+          if (isAtEnd() && delta > 40) {
+            scrollToIndex(0);
+          } else if (isAtStart() && delta < -40) {
+            scrollToIndex(slides.length - 1);
+          }
+        },
+        { passive: true }
+      );
+
       updateUI();
     } else {
       prevBtn?.remove();
