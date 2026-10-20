@@ -289,8 +289,6 @@ const showcase = thesisShowcaseOrder
     function updateUI() {
       const idx = currentIndex();
       dots.forEach((d, i) => d.classList.toggle("is-active", i === idx));
-      if (prevBtn) prevBtn.disabled = idx === 0;
-      if (nextBtn) nextBtn.disabled = idx === slides.length - 1;
     }
 
     function scrollToIndex(i: number) {
@@ -298,8 +296,10 @@ const showcase = thesisShowcaseOrder
     }
 
     if (slides.length > 1) {
-      prevBtn?.addEventListener("click", () => scrollToIndex(Math.max(0, currentIndex() - 1)));
-      nextBtn?.addEventListener("click", () => scrollToIndex(Math.min(slides.length - 1, currentIndex() + 1)));
+      prevBtn?.addEventListener("click", () =>
+        scrollToIndex((currentIndex() - 1 + slides.length) % slides.length)
+      );
+      nextBtn?.addEventListener("click", () => scrollToIndex((currentIndex() + 1) % slides.length));
 
       let ticking = false;
       track.addEventListener("scroll", () => {
