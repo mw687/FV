@@ -19,10 +19,7 @@ const panelId = `panel-team-${member.slug}`;
 <template id={panelId}>
   <img class="panel-photo" src={photoSrc} alt={member.name} />
   <div class="panel-header">
-    <div>
-      <h2 class="panel-title">{member.name}</h2>
-      <p class="panel-oneliner">{member.title}</p>
-    </div>
+    <h2 class="panel-title">{member.name}</h2>
     {
       member.linkedin && (
         <a
@@ -39,6 +36,7 @@ const panelId = `panel-team-${member.slug}`;
       )
     }
   </div>
+  <p class="panel-oneliner">{member.title}</p>
   {
     member.bio ? (
       member.bio
@@ -93,7 +91,7 @@ const panelId = `panel-team-${member.slug}`;
 
   .panel-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 1rem;
   }
@@ -101,21 +99,20 @@ const panelId = `panel-team-${member.slug}`;
   .panel-title {
     font-size: 2rem;
     font-weight: 800;
-    margin: 0 0 0.25rem;
+    margin: 0;
   }
 
   .panel-oneliner {
     font-size: 1rem;
     line-height: 1.5;
     color: var(--color-text-muted);
-    margin: 0 0 2rem;
+    margin: 0.25rem 0 2rem;
   }
 
   .panel-linkedin {
     flex-shrink: 0;
     display: flex;
     color: var(--color-text);
-    margin-top: 0.5rem;
   }
 
   .panel-linkedin:hover,
