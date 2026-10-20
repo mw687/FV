@@ -311,7 +311,7 @@ export const companies: Company[] = [
     logo: "accord-partners",
     teamPhoto: "accord-partners",
     whyWeBacked:
-      "Amr and Karim's reputations as seasoned builders preceded them. As the co-founder and CEO of Tribal Credit, a global fintech for SMEs, Amr raised $180mn across equity, debt, and tokens, scaled the business to nearly 500 employees, and led multiple market launches. Karim, a computer science academic and former CTO of Blnk, brought the technical expertise to scale and modernize businesses effectively.",
+      "Amr and Karim's reputations as seasoned builders preceded them. As the co-founder and CEO of Tribal Credit, a global fintech for SMEs, Amr raised $xxxmn across equity, debt, and tokens, scaled the business to hundreds of employees, and led multiple market launches. Karim, a computer science academic and former CTO of Blnk, brought the technical expertise to scale and modernize businesses effectively.",
     founders: [
       {
         name: "Amr Shady",
@@ -338,7 +338,7 @@ export const companies: Company[] = [
     logoNeedsLabel: true,
     teamPhoto: "flashq",
     whyWeBacked:
-      "Ahmed's analytical sharpness and Yahia's operational chops were apparent early, but our conviction grew as their proactiveness and domain expertise became clear. Ahmed led Amazon Egypt's Marketplace to 7x topline growth in four years, while Yahia's 14 years at global multinationals made him a solution-oriented supply chain leader. Both brought strong networks that translated into sales.",
+      "Ahmed's analytical sharpness and Yahia's operational chops were apparent early, but our conviction grew as their proactiveness and domain expertise became clear. Ahmed led Amazon Egypt's Marketplace for four years, while Yahia's 14 years at global multinationals made him a solution-oriented supply chain leader. Both bring strong networks that translate into sales and early key hires.",
     founders: [
       {
         name: "Ahmed El-Sobky",
