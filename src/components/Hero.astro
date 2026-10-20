@@ -312,7 +312,12 @@ const showcase = thesisShowcaseOrder
         }
       });
 
-      window.addEventListener("resize", () => scrollToIndex(currentIndex()));
+      let lastWindowWidth = window.innerWidth;
+      window.addEventListener("resize", () => {
+        if (window.innerWidth === lastWindowWidth) return;
+        lastWindowWidth = window.innerWidth;
+        scrollToIndex(currentIndex());
+      });
 
       updateUI();
     } else {
