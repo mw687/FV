@@ -105,6 +105,9 @@ export const companies: Company[] = [
     website: "https://kenzz.com",
     logo: "kenzz",
     logoScale: 1.1,
+    teamPhoto: "kenzz",
+    whyWeBacked:
+      "Ahmad and Mahmoud embodied local meets global. A decade in engineering and marketing at Vodafone Romania and Egypt gave Ahmad deep insight into consumer behavior. Mahmoud, entrepreneurial by design, left a comfortable job building large-scale systems at Google Ads to build for the underserved. Together, their strengths convinced us they could build a world-class e-commerce platform for the mass segment.",
     founders: [
       {
         name: "Ahmad Atef",
@@ -354,7 +357,7 @@ export const companies: Company[] = [
 ];
 
 /** Order companies appear in the thesis "why we backed them" carousel, independent of their position above. New companies are appended as they're added. */
-export const thesisShowcaseOrder: string[] = ["flextock", "accord-partners", "rabbit", "flashq", "swypex"];
+export const thesisShowcaseOrder: string[] = ["flextock", "accord-partners", "rabbit", "flashq", "swypex", "kenzz"];
 
 export interface TeamMember {
   slug: string;
