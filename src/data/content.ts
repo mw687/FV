@@ -333,6 +333,9 @@ export const companies: Company[] = [
     website: "https://flashq.ai",
     logo: "flashq",
     logoNeedsLabel: true,
+    teamPhoto: "flashq",
+    whyWeBacked:
+      "Ahmed's analytical sharpness and Yahia's operational chops were apparent from a first meeting, but our conviction in them grew as their proactiveness, coachability, and domain expertise became truly apparent. With his data driven and collaborative approach, Ahmed led Amazon Egypt's Marketplace to 7x topline growth in four years. Yahia's 14 years of experience at global multinationals made him a solution-oriented supply chain leader. Both brought strong networks that even early on translated into sales and core team hires.",
     founders: [
       {
         name: "Ahmed El-Sobky",
@@ -351,7 +354,7 @@ export const companies: Company[] = [
 ];
 
 /** Order companies appear in the thesis "why we backed them" carousel, independent of their position above. New companies are appended as they're added. */
-export const thesisShowcaseOrder: string[] = ["flextock", "accord-partners", "rabbit", "swypex", "nowpay", "aydi", "abwaab"];
+export const thesisShowcaseOrder: string[] = ["flextock", "accord-partners", "rabbit", "flashq", "swypex", "nowpay", "aydi", "abwaab"];
 
 export interface TeamMember {
   slug: string;
