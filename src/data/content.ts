@@ -335,7 +335,7 @@ export const companies: Company[] = [
     logoNeedsLabel: true,
     teamPhoto: "flashq",
     whyWeBacked:
-      "Ahmed's analytical sharpness and Yahia's operational chops were apparent from a first meeting, but our conviction grew as their proactiveness and domain expertise became clear. Ahmed led Amazon Egypt's Marketplace to 7x topline growth in four years, while Yahia's 14 years at global multinationals made him a solution-oriented supply chain leader. Both brought strong networks that translated into early sales and hires.",
+      "Ahmed's analytical sharpness and Yahia's operational chops were apparent early, but our conviction grew as their proactiveness and domain expertise became clear. Ahmed led Amazon Egypt's Marketplace to 7x topline growth in four years, while Yahia's 14 years at global multinationals made him a solution-oriented supply chain leader. Both brought strong networks that translated into sales and hires.",
     founders: [
       {
         name: "Ahmed El-Sobky",
