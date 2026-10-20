@@ -107,7 +107,7 @@ export const companies: Company[] = [
     logoScale: 1.1,
     teamPhoto: "kenzz",
     whyWeBacked:
-      "Ahmad and Mahmoud embodied local meets global. A decade in engineering and marketing at Vodafone Romania and Egypt gave Ahmad deep insight into consumer behavior. Mahmoud, entrepreneurial by design, left a comfortable job building large-scale systems at Google Ads to build for the underserved. Together, their strengths convinced us they could build a world-class e-commerce platform for the mass segment.",
+      "Ahmad and Mahmoud embodied local meets global. A decade in engineering and marketing at Vodafone Romania and Egypt gave Ahmad deep insight into consumer behavior. Mahmoud, entrepreneurial by design, left a comfortable job building large-scale systems at Google Ads to build for the underserved. Their strengths convinced us they could build a world-class e-commerce platform for the mass segment.",
     founders: [
       {
         name: "Ahmad Atef",
