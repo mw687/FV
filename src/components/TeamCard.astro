@@ -4,9 +4,10 @@ import type { TeamMember } from "../data/content";
 interface Props {
   member: TeamMember;
   photoSrc: string;
+  panelPhotoSrc?: string;
 }
 
-const { member, photoSrc } = Astro.props;
+const { member, photoSrc, panelPhotoSrc = photoSrc } = Astro.props;
 const panelId = `panel-team-${member.slug}`;
 ---
 
@@ -17,7 +18,7 @@ const panelId = `panel-team-${member.slug}`;
 </button>
 
 <template id={panelId}>
-  <img class="panel-photo" src={photoSrc} alt={member.name} />
+  <img class="panel-photo" src={panelPhotoSrc} alt={member.name} />
   <div class="panel-header">
     <h2 class="panel-title">{member.name}</h2>
     {

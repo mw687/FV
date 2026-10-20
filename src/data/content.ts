@@ -364,6 +364,7 @@ export interface TeamMember {
   name: string;
   title: string;
   photo: string;
+  panelPhoto?: string;
   bio: string | null;
   linkedin: string | null;
 }
@@ -382,6 +383,7 @@ export const team: TeamMember[] = [
     name: "Katherine Kamel",
     title: "Senior Associate",
     photo: "katherine",
+    panelPhoto: "katherine-panel",
     bio: "Katherine is a Senior Associate at Foundation Ventures.\n\nPrior to joining Foundation Ventures, Katherine worked as a Senior Consultant at ReD Associates based in Copenhagen, where she created growth strategies for clients across sectors in the U.S. and Europe. She also gained operational experience at Hive, a San Francisco-based AI startup, where she owned the end-to-end delivery of client engagements on the company's data platform.\n\nKatherine is a Dream VC Fellow and holds a Bachelor of Arts from the University of Chicago with Honors.",
     linkedin: "https://www.linkedin.com/in/katherine-kamel/",
   },

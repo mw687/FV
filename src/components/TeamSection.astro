@@ -4,11 +4,13 @@ import TeamCard from "./TeamCard.astro";
 
 import mazen from "../assets/team/mazen.webp";
 import katherine from "../assets/team/katherine.webp";
+import katherinePanel from "../assets/team/katherine-panel.webp";
 import wael from "../assets/team/wael.webp";
 
 const photoMap: Record<string, string> = {
   mazen: mazen.src,
   katherine: katherine.src,
+  "katherine-panel": katherinePanel.src,
   wael: wael.src,
 };
 ---
@@ -16,7 +18,15 @@ const photoMap: Record<string, string> = {
 <section class="team" id="team">
   <p class="eyebrow reveal">Our Team</p>
   <div class="team__grid reveal">
-    {team.map((member) => <TeamCard member={member} photoSrc={photoMap[member.photo]} />)}
+    {
+      team.map((member) => (
+        <TeamCard
+          member={member}
+          photoSrc={photoMap[member.photo]}
+          panelPhotoSrc={member.panelPhoto ? photoMap[member.panelPhoto] : photoMap[member.photo]}
+        />
+      ))
+    }
   </div>
 </section>
 
