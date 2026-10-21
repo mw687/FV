@@ -341,10 +341,21 @@ const showcase = thesisShowcaseOrder
         track!.style.scrollSnapType = "";
       }
 
-      // start on the real first slide (display index 1), past the leading clone
-      hardJump(1);
-      updateDots(0);
-      track.style.visibility = "";
+      // Start on the real first slide (display index 1), past the leading
+      // clone. On a slower device layout isn't always settled yet here, so
+      // clientWidth can briefly read 0 — jumping to "1 * 0" would land right
+      // back on the clone we're trying to avoid. Wait a frame until it's a
+      // real measurement before positioning and revealing.
+      function positionAndReveal() {
+        if (!track!.clientWidth) {
+          requestAnimationFrame(positionAndReveal);
+          return;
+        }
+        hardJump(1);
+        updateDots(0);
+        track!.style.visibility = "";
+      }
+      positionAndReveal();
 
       prevBtn?.addEventListener("click", () => scrollToDisplay(displayIndex() - 1));
       nextBtn?.addEventListener("click", () => scrollToDisplay(displayIndex() + 1));
