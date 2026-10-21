@@ -380,7 +380,14 @@ const showcase = thesisShowcaseOrder
       window.addEventListener("resize", () => {
         if (window.innerWidth === lastWindowWidth) return;
         lastWindowWidth = window.innerWidth;
-        hardJump(displayIndex());
+        // Route through toRealIndex rather than jumping straight to the raw
+        // displayIndex — if the resize itself left us reading a clone
+        // position (0 or realCount + 1), re-jumping to that same spot would
+        // strand the carousel on the clone. Always land on a real slide, and
+        // keep the dots in sync (this path previously left them stale).
+        const realIdx = toRealIndex(displayIndex());
+        hardJump(realIdx + 1);
+        updateDots(realIdx);
       });
     } else {
       prevBtn?.remove();
