@@ -277,6 +277,13 @@ const showcase = thesisShowcaseOrder
       // of rewinding back across every slide in between.
       const realCount = slides.length;
 
+      // Hide the track before inserting the lastClone ahead of the real first
+      // slide — that insertion alone (before we've repositioned scrollLeft)
+      // would momentarily show the clone at rest position 0 (e.g. Kenzz
+      // instead of Our Thesis) on first load. Hidden here, revealed once the
+      // real first slide is back in position, so that frame never paints.
+      track.style.visibility = "hidden";
+
       if (dotsContainer) {
         slides.forEach((_, i) => {
           const dot = document.createElement("button");
@@ -337,6 +344,7 @@ const showcase = thesisShowcaseOrder
       // start on the real first slide (display index 1), past the leading clone
       hardJump(1);
       updateDots(0);
+      track.style.visibility = "";
 
       prevBtn?.addEventListener("click", () => scrollToDisplay(displayIndex() - 1));
       nextBtn?.addEventListener("click", () => scrollToDisplay(displayIndex() + 1));
