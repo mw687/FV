@@ -352,23 +352,34 @@ const showcase = thesisShowcaseOrder
       // Autoplay: advance one slide at a time, but back off the moment the
       // user shows any interest in controlling it themselves — hover/focus
       // pauses temporarily, an actual click/swipe/scroll stops it for good
-      // (never resume and fight the user), and it never starts at all for
-      // prefers-reduced-motion. Also pauses while the tab isn't visible.
+      // (never resume and fight the user). Runs regardless of
+      // prefers-reduced-motion and while the tab is backgrounded, per
+      // explicit instruction. A plain setInterval on the main thread gets
+      // throttled (or fully paused) by the browser once the tab is
+      // backgrounded — that's a platform power-saving behavior, not
+      // something a visibility check in this file was doing — so the timer
+      // runs inside a Web Worker instead, which isn't subject to the same
+      // throttling, and the worker just pings the main thread to advance.
       const AUTOPLAY_INTERVAL_MS = 6000;
-      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      let autoplayEnabled = !prefersReducedMotion;
-      let autoplayTimer: ReturnType<typeof setInterval> | null = null;
+      let autoplayEnabled = true;
+      let autoplayWorker: Worker | null = null;
+      const autoplayWorkerUrl = URL.createObjectURL(
+        new Blob([`setInterval(() => postMessage(0), ${AUTOPLAY_INTERVAL_MS});`], {
+          type: "application/javascript",
+        })
+      );
 
       function stopAutoplay() {
-        if (autoplayTimer !== null) {
-          clearInterval(autoplayTimer);
-          autoplayTimer = null;
+        if (autoplayWorker !== null) {
+          autoplayWorker.terminate();
+          autoplayWorker = null;
         }
       }
 
       function startAutoplay() {
-        if (!autoplayEnabled || autoplayTimer !== null || document.hidden) return;
-        autoplayTimer = setInterval(() => scrollToIndex(currentIndex() + 1), AUTOPLAY_INTERVAL_MS);
+        if (!autoplayEnabled || autoplayWorker !== null) return;
+        autoplayWorker = new Worker(autoplayWorkerUrl);
+        autoplayWorker.onmessage = () => scrollToIndex(currentIndex() + 1);
       }
 
       function disableAutoplay() {
@@ -412,11 +423,39 @@ const showcase = thesisShowcaseOrder
         hardJump(Math.min(currentIndex(), realCount - 1));
       });
 
-      // A genuine user gesture on the track itself (swipe, trackpad scroll,
-      // drag) — as opposed to the "scroll" events our own autoplay/clone
-      // correction generate — stops autoplay for good.
-      track.addEventListener("pointerdown", disableAutoplay, { passive: true });
-      track.addEventListener("wheel", disableAutoplay, { passive: true });
+      // A genuine horizontal carousel swipe/scroll stops autoplay for good —
+      // but only horizontal: a touch or wheel gesture that's mostly
+      // vertical is someone scrolling the page past the hero, not trying to
+      // navigate the carousel, and must not be treated as "the user took
+      // over" (pointerdown/wheel alone would also fire for exactly that
+      // ordinary page scroll, which was killing autoplay almost
+      // immediately for most visitors).
+      let touchStartX = 0;
+      let touchStartY = 0;
+      track.addEventListener(
+        "touchstart",
+        (e) => {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        },
+        { passive: true }
+      );
+      track.addEventListener(
+        "touchend",
+        (e) => {
+          const dx = Math.abs(touchStartX - e.changedTouches[0].clientX);
+          const dy = Math.abs(touchStartY - e.changedTouches[0].clientY);
+          if (dx > dy && dx > 10) disableAutoplay();
+        },
+        { passive: true }
+      );
+      track.addEventListener(
+        "wheel",
+        (e) => {
+          if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) disableAutoplay();
+        },
+        { passive: true }
+      );
 
       // Hover/focus only pause — someone reading a slide shouldn't have it
       // change under them, but moving away lets it resume (unless a real
@@ -425,14 +464,6 @@ const showcase = thesisShowcaseOrder
       track.addEventListener("mouseleave", startAutoplay);
       track.addEventListener("focusin", stopAutoplay);
       track.addEventListener("focusout", startAutoplay);
-
-      document.addEventListener("visibilitychange", () => {
-        if (document.hidden) {
-          stopAutoplay();
-        } else {
-          startAutoplay();
-        }
-      });
 
       startAutoplay();
     } else {
