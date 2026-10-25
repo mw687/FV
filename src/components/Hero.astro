@@ -360,7 +360,7 @@ const showcase = thesisShowcaseOrder
       // something a visibility check in this file was doing — so the timer
       // runs inside a Web Worker instead, which isn't subject to the same
       // throttling, and the worker just pings the main thread to advance.
-      const AUTOPLAY_INTERVAL_MS = 6000;
+      const AUTOPLAY_INTERVAL_MS = 5000;
       let autoplayEnabled = true;
       let autoplayWorker: Worker | null = null;
       const autoplayWorkerUrl = URL.createObjectURL(
