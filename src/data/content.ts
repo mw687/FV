@@ -311,7 +311,7 @@ export const companies: Company[] = [
     logo: "accord-partners",
     teamPhoto: "accord-partners",
     whyWeBacked:
-      "Amr and Karim's reputations as seasoned builders preceded them. As the co-founder and CEO of Tribal Credit, a global fintech for SMEs, Amr raised $xxxmn across equity, debt, and tokens, scaled the business to hundreds of employees, and led multiple market launches. Karim, a computer science academic and former CTO of Blnk, brought the technical expertise to scale and modernize businesses effectively.",
+      "Amr and Karim's reputations as seasoned builders preceded them. As the co-founder and CEO of Tribal Credit, a global fintech for SMEs, Amr raised $100mn+ across equity, debt, and tokens, scaled the business to hundreds of employees, and led multiple market launches. Karim, a computer science academic and former CTO of Blnk, brought the technical expertise to scale and modernize businesses effectively.",
     founders: [
       {
         name: "Amr Shady",
