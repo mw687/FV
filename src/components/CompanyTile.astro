@@ -22,7 +22,7 @@ function initials(name: string) {
 ---
 
 <button class="tile" type="button" data-panel-target={panelId} aria-haspopup="dialog">
-  <span class="tile__fund" aria-hidden="true">{company.fund}</span>
+  <span class={`tile__fund ${company.fund === "Fund II" ? "tile__fund--ii" : ""}`} aria-hidden="true">{company.fund}</span>
   <span class="tile__logo-row">
     <img
       class="tile__logo"
@@ -120,6 +120,10 @@ function initials(name: string) {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--color-tile-text-muted);
+  }
+
+  .tile__fund--ii {
+    color: var(--color-accent);
   }
 
   .tile__logo-row {
