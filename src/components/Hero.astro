@@ -35,7 +35,7 @@ const showcase = thesisShowcaseOrder
       <div class="hero__slide hero__slide--thesis">
         <p class="eyebrow reveal">Our Thesis</p>
         <h1 class="hero__headline reveal" style="transition-delay: 90ms">
-          We back the<br /><span class="hero__highlight">people</span> who<br />redefine industries.
+          We back the<br /><span class="hero__highlight">people</span> <br class="hero__break--mobile" />who <br class="hero__break--desktop" />redefine <br class="hero__break--mobile" />industries.
         </h1>
         <p class="hero__body reveal" style="transition-delay: 180ms">
           We are a pre-seed and seed investor in Egypt and Africa, backing founders
@@ -134,6 +134,10 @@ const showcase = thesisShowcaseOrder
 
   .hero__highlight {
     color: var(--color-accent);
+  }
+
+  .hero__break--mobile {
+    display: none;
   }
 
   .hero__body {
@@ -240,6 +244,14 @@ const showcase = thesisShowcaseOrder
   @media (max-width: 768px) {
     .hero {
       padding: 3.5rem var(--gutter) 1.75rem;
+    }
+
+    .hero__break--mobile {
+      display: inline;
+    }
+
+    .hero__break--desktop {
+      display: none;
     }
 
     .hero__slide--company {
