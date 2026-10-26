@@ -241,7 +241,7 @@ export const companies: Company[] = [
     logoScale: 0.92,
     teamPhoto: "rabbit",
     whyWeBacked:
-      "Rabbit's founding team are operators first, not concept builders, with the depth to understand supply chains and rebuild them with a tech-first approach. Ahmad brought hands-on experience scaling dark store networks at Uber Eats and Talabat, Ismail the process-driven discipline from Kazyon, Egypt's largest grocery retailer. We introduced the founders to each other, and Rabbit was born out of there.",
+      "Rabbit's founding team are operators first, not concept builders. We knew from early meetings that they had a deep blend of operational knowledge to understand supply chains and rebuild them with a tech-first approach. Ahmad brought hands-on experience scaling dark store networks at Uber Eats and Talabat, Ismail the process-driven discipline from Kazyon, Egypt's largest grocery retailer.",
     founders: [
       {
         name: "Ahmad Yousry",
